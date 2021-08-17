@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //Hive package
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
+import 'package:yellowclassactual/Screens/HomeScreen.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -50,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding: const EdgeInsets.only(top: 100),
                     child: Text(snapshot.error.toString()));
               else
-                return Center(child: Text('Box Opened'));
+                return HomeScreen();
             } else
               return CircularProgressIndicator();
           }),
