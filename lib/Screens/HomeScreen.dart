@@ -35,6 +35,12 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void _clearAllValues() {
+    setState(() {
+      Hive.box('movieDB').clear();
+    });
+  }
+
   void reload() {
     setState(() {
       print('list refreshed');
@@ -61,6 +67,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 icon: Icon(Icons.replay_outlined),
               ),
+              IconButton(
+                onPressed: _clearAllValues,
+                icon: Icon(Icons.clear_all_rounded),
+              )
             ]),
           ]),
         ),
@@ -111,7 +121,7 @@ ListView _movieListBuilder(
                 icon: Icon(Icons.edit),
                 onPressed: () {
                   _updatedDB(
-                      index, MovieDB('hehe $_index', 'directorName $_index'));
+                      _index, MovieDB('hehe $_index', 'directorName $_index'));
                 },
               ),
               IconButton(
