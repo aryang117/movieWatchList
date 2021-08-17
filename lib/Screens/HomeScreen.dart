@@ -16,8 +16,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   void addtoBox() {
-    final MovieDB _newValueToAdd =
-        MovieDB('movieName$index', "directorName$index");
+    final MovieDB _newValueToAdd = MovieDB(
+        'movieName$index',
+        "directorName$index",
+        'https://cdn.mos.cms.futurecdn.net/j6reMf3QEuGWFE7FkVmoyT-1200-80.jpg');
     index++;
     setState(() {
       Hive.box('movieDB').add(_newValueToAdd);
@@ -106,7 +108,7 @@ ListView _movieListBuilder(
         padding: const EdgeInsets.only(top: 20),
         height: 100,
         child: ListTile(
-          leading: _thumbnailMaker(),
+          leading: _thumbnailMaker(_movieDB.posterLink),
           horizontalTitleGap: 20,
           title: Text(_movieDB.movieName,
               style: TextStyle(
@@ -125,7 +127,9 @@ ListView _movieListBuilder(
                 icon: Icon(Icons.edit),
                 onPressed: () {
                   _updatedDB(
-                      _index, MovieDB('hehe $_index', 'directorName $_index'));
+                      _index,
+                      MovieDB('hehe $_index', 'directorName $_index',
+                          'https://cdn.mos.cms.futurecdn.net/j6reMf3QEuGWFE7FkVmoyT-1200-80.jpg'));
                 },
               ),
               IconButton(
@@ -144,11 +148,11 @@ ListView _movieListBuilder(
   );
 }
 
-Widget _thumbnailMaker() {
+Widget _thumbnailMaker(String posterLink) {
   return ClipRRect(
     borderRadius: BorderRadius.circular(5),
     child: Image.network(
-      'https://cdn.mos.cms.futurecdn.net/j6reMf3QEuGWFE7FkVmoyT-1200-80.jpg',
+      posterLink,
       fit: BoxFit.fitHeight,
       height: 250,
       width: 75,

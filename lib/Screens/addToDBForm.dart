@@ -79,7 +79,9 @@ class _AddToDBFormState extends State<AddToDBForm> {
                             fontSize: 18, fontWeight: FontWeight.w500)),
                     onPressed: () {
                       final newMovieData = MovieDB(
-                          _movieNameController.text, _dirNameController.text);
+                          _movieNameController.text,
+                          _dirNameController.text,
+                          'https://cdn.mos.cms.futurecdn.net/j6reMf3QEuGWFE7FkVmoyT-1200-80.jpg');
 
                       setState(() {
                         addtoBox(newMovieData);
