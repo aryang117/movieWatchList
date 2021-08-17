@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:hive/hive.dart';
+import 'package:yellowclassactual/Screens/addToDBForm.dart';
 
 import '/Models/movieDB.dart';
 
@@ -83,7 +84,10 @@ class _HomeScreenState extends State<HomeScreen> {
           Icons.add,
           size: 36,
         ),
-        onPressed: addtoBox,
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => AddToDBForm()));
+        },
       ),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterFloat,
