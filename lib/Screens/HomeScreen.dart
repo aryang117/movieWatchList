@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:hive/hive.dart';
 import 'package:yellowclassactual/Screens/addToDBForm.dart';
+import 'package:yellowclassactual/Screens/updateDBForm.dart';
 
 import '/Models/movieDB.dart';
 
@@ -103,43 +104,56 @@ ListView _movieListBuilder(
   return ListView.builder(
     itemBuilder: (_context, _index) {
       final _movieDB = _movieBox.getAt(_index) as MovieDB;
+      final DBItem = _movieBox.length;
 
       return Container(
         padding: const EdgeInsets.only(top: 20),
         height: 100,
-        child: ListTile(
-          leading: _thumbnailMaker(_movieDB.posterLink),
-          horizontalTitleGap: 20,
-          title: Text(_movieDB.movieName,
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black)),
-          subtitle: Text(_movieDB.directorName,
-              style: TextStyle(
-                fontSize: 14,
-              )),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              IconButton(
-                color: Colors.black,
-                icon: Icon(Icons.edit),
-                onPressed: () {
-                  _updatedDB(
-                      _index,
-                      MovieDB('hehe $_index', 'directorName $_index',
-                          'https://th.bing.com/th?id=OIF.nEggosRFYdkrXnY3%2btTumg&pid=ImgDet&rs=1'));
-                },
-              ),
-              IconButton(
-                color: Colors.black,
-                icon: Icon(Icons.delete),
-                onPressed: () {
-                  _deleteValueFromDB(_index);
-                },
-              )
-            ],
+        child: Dismissible(
+          key: Key(DBItem.toString()),
+          background: Container(
+            color: Colors.red,
+            child: Text('Delete Item'),
+            alignment: Alignment.centerRight,
+            padding: const EdgeInsets.only(right: 20.0),
+          ),
+          onDismissed: (DismissDirection _direction) {
+            _deleteValueFromDB(_index);
+            ScaffoldMessenger.of(_context).showSnackBar(
+                SnackBar(content: Text('Deleted Value at index : $_index')));
+          },
+          child: ListTile(
+            leading: _thumbnailMaker(_movieDB.posterLink),
+            horizontalTitleGap: 20,
+            title: Text(_movieDB.movieName,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black)),
+            subtitle: Text(_movieDB.directorName,
+                style: TextStyle(
+                  fontSize: 14,
+                )),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  color: Colors.black,
+                  icon: Icon(Icons.edit),
+                  onPressed: () {
+                    Navigator.of(_context).push(MaterialPageRoute(
+                        builder: (context) => UpdateDBForm(index: _index)));
+                  },
+                ),
+                IconButton(
+                  color: Colors.black,
+                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    _deleteValueFromDB(_index);
+                  },
+                )
+              ],
+            ),
           ),
         ),
       );
