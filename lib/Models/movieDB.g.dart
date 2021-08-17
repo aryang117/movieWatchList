@@ -19,17 +19,20 @@ class MovieDBAdapter extends TypeAdapter<MovieDB> {
     return MovieDB(
       fields[0] as String,
       fields[1] as String,
+      fields[2] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, MovieDB obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.movieName)
       ..writeByte(1)
-      ..write(obj.directorName);
+      ..write(obj.directorName)
+      ..writeByte(2)
+      ..write(obj.posterLink);
   }
 
   @override

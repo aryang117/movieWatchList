@@ -8,6 +8,8 @@ class MovieDB {
   final String movieName;
   @HiveField(1)
   final String directorName;
+  @HiveField(2)
+  final String posterLink;
 
-  const MovieDB(this.movieName, this.directorName);
+  const MovieDB(this.movieName, this.directorName, this.posterLink);
 }
