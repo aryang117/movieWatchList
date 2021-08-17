@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 
 import 'package:yellowclassactual/Screens/HomeScreen.dart';
+import 'package:yellowclassactual/Screens/LoginScreen.dart';
 
 import 'Models/movieDB.dart';
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: LoginScreen(),
     );
   }
 }
