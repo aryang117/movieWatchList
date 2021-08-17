@@ -129,7 +129,7 @@ ListView _movieListBuilder(
                   _updatedDB(
                       _index,
                       MovieDB('hehe $_index', 'directorName $_index',
-                          'https://cdn.mos.cms.futurecdn.net/j6reMf3QEuGWFE7FkVmoyT-1200-80.jpg'));
+                          'https://th.bing.com/th?id=OIF.nEggosRFYdkrXnY3%2btTumg&pid=ImgDet&rs=1'));
                 },
               ),
               IconButton(
