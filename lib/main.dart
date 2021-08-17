@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 //Hive package
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
+
 import 'package:yellowclassactual/Screens/HomeScreen.dart';
+
+import 'Models/movieDB.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -31,6 +34,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Future<void> loadHiveStuff() async {
     Hive.openBox('movieDB');
+    Hive.registerAdapter(MovieDBAdapter());
   }
 
   @override
