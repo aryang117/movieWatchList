@@ -165,12 +165,16 @@ ListView _movieListBuilder(
 Widget _thumbnailMaker(String posterLink) {
   return ClipRRect(
     borderRadius: BorderRadius.circular(5),
-    child: Image.network(
-      posterLink,
-      fit: BoxFit.fitHeight,
-      height: 250,
-      width: 75,
-      //width: 50,
+    child: SizedBox(
+      height: 60,
+      width: 60,
+      child: Image.network(
+        posterLink,
+        fit: BoxFit.fill,
+        // height: 75,
+        // width: 75,
+        //width: 50,
+      ),
     ),
   );
 }
