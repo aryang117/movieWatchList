@@ -13,7 +13,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final Future<FirebaseApp> _initFB = Firebase.initializeApp();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   Future<bool> _signInAnonymously() async {
