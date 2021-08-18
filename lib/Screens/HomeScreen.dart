@@ -27,12 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void _clearAllValuesDB() {
-    setState(() {
-      Hive.box('movieDB').clear();
-    });
-  }
-
   void refreshDBData() {
     setState(() {
       print('list refreshed');
