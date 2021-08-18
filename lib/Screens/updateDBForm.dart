@@ -6,6 +6,8 @@ import '/Models/movieDB.dart';
 
 String posterURL = "";
 
+//TODO : Add the api functionality to this one too! Currently it just returns a static link to Halo Infinite's cover photo, not the movie poster
+
 class UpdateDBForm extends StatefulWidget {
   const UpdateDBForm({Key? key, required this.index}) : super(key: key);
 

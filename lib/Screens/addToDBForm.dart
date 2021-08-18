@@ -90,6 +90,7 @@ class _AddToDBFormState extends State<AddToDBForm> {
                             content: Text(
                                 'Movie not Found! Please Enter a valid movie name!')));
                       } else {
+                        //TODO : Handle N/A as poster URL, some movies' Poster is not available so the link we get is N/A
                         final newMovieData = MovieDB(_movieNameController.text,
                             _dirNameController.text, posterURL);
 
