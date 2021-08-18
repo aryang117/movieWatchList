@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '/Models/movieDB.dart';
-
 import '/API/api.dart';
+
+import '/Widgets/commonWidgets.dart';
 
 String _posterURL = "";
 
@@ -76,21 +77,13 @@ class _AddToDBFormState extends State<AddToDBForm> {
                 ),
               ),
               _vertPaddingbetweenElements(),
-              TextFormField(
-                controller: _movieNameController,
-                decoration: InputDecoration(
-                    labelText: 'Movie Name',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5))),
-              ),
+              CustomTextFormField(
+                  textEditingController: _movieNameController,
+                  label: 'Movie Name'),
               _vertPaddingbetweenElements(),
-              TextFormField(
-                controller: _dirNameController,
-                decoration: InputDecoration(
-                    labelText: 'Director Name',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5))),
-              ),
+              CustomTextFormField(
+                  textEditingController: _dirNameController,
+                  label: 'Director Name'),
               _vertPaddingbetweenElements(),
               Container(
                   height: 60,
