@@ -23,6 +23,8 @@ environment:
 dependencies:
   build_runner: ^2.1.1
   cupertino_icons: ^1.0.2
+  firebase_auth: ^3.0.2
+  firebase_core: ^1.5.0
   flutter:
     sdk: flutter
   hive: ^2.0.0
