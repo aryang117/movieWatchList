@@ -38,7 +38,7 @@ class _AddToDBFormState extends State<AddToDBForm> {
 
   //updates values in the DB
   Future<void> _addtoDB() async {
-    // await _getMoviePosterLink();
+    if (_posterURL.length == 0) await _getMoviePosterLink();
 
     final newMovieData =
         MovieDB(_movieNameController.text, _dirNameController.text, _posterURL);

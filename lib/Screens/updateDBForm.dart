@@ -11,7 +11,7 @@ String _posterURL = "";
 
 // stores the status of the updation of posterURL, happens when the user may directly
 // click on the update values and not save the field (i.e click on the cta and not submit the value)
-bool _isPosterUpdated = false;
+String _prevURL = "";
 
 class UpdateDBForm extends StatefulWidget {
   const UpdateDBForm({Key? key, required this.index}) : super(key: key);
@@ -35,6 +35,7 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
     _movieNameController.text = curValues.movieName;
     _dirNameController.text = curValues.directorName;
     _posterURL = curValues.posterLink;
+    _prevURL = curValues.posterLink;
   }
 
   @override
@@ -46,7 +47,6 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
   // when the user is done with editing the field, it gets the movie Poster Link
   Future<void> _getMoviePosterLink() async {
     _posterURL = await getMoviePoster(_movieNameController.text);
-    _isPosterUpdated = true;
 
     // in case if the movie poster link is given as N/A (movie poster not present/found by api) : edge case
     if (_posterURL == "N/A")
@@ -61,9 +61,7 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
 
   //updates values in the DB
   Future<void> _updateValues() async {
-    // await _getMoviePosterLink();
-
-    print(_isPosterUpdated);
+    if (_posterURL == _prevURL) await _getMoviePosterLink();
 
     final _updatedMovieData =
         MovieDB(_movieNameController.text, _dirNameController.text, _posterURL);
