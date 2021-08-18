@@ -8,6 +8,7 @@ import '/API/api.dart';
 import '/Widgets/commonWidgets.dart';
 
 String _posterURL = "";
+String _prevURL = "";
 
 class AddToDBForm extends StatefulWidget {
   const AddToDBForm({Key? key}) : super(key: key);
@@ -42,7 +43,9 @@ class _AddToDBFormState extends State<AddToDBForm> {
 
   //updates values in the DB
   Future<void> _addtoDB() async {
-    if (_posterURL.length == 0) await _getMoviePosterLink();
+    if (_posterURL.length == 0 ||
+        _posterURL == "null" ||
+        _posterURL == _prevURL) await _getMoviePosterLink();
 
     if (_posterURL.length != 0 && _posterURL != "null") {
       final newMovieData = MovieDB(
@@ -50,6 +53,7 @@ class _AddToDBFormState extends State<AddToDBForm> {
 
       setState(() {
         Hive.box('movieDB').add(newMovieData);
+        _prevURL = _posterURL;
       });
       Navigator.pop(context);
     } else {
