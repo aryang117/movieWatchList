@@ -61,7 +61,7 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
 
   //updates values in the DB
   Future<void> _updateValues() async {
-    await _getMoviePosterLink();
+    // await _getMoviePosterLink();
 
     print(_isPosterUpdated);
 
