@@ -18,7 +18,6 @@ class InitializeHive extends StatefulWidget {
 class _InitializeHiveState extends State<InitializeHive> {
   Future<void> loadHiveStuff() async {
     Hive.openBox('movieDB');
-    Hive.registerAdapter(MovieDBAdapter());
   }
 
   @override

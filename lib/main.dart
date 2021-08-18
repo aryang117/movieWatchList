@@ -6,11 +6,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 
 import '/Screens/LoginScreen.dart';
+import 'Models/movieDB.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Firebase.initializeApp();
+  Hive.registerAdapter(MovieDBAdapter());
   runApp(MyApp());
 }
 
