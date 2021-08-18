@@ -40,7 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: _bottomNavigationBar(_firebaseAuth, context),
+      extendBody: true,
+      bottomNavigationBar:
+          _bottomNavigationBar(_firebaseAuth, context, refreshDBData),
       body: Container(
         child: SingleChildScrollView(
           child: Column(children: [
@@ -60,11 +62,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
 // Implemented a quick bottomnavbar
 BottomNavigationBar _bottomNavigationBar(
-    FirebaseAuth _firebaseAuth, BuildContext _context) {
+    FirebaseAuth _firebaseAuth, BuildContext _context, Function _refreshList) {
   return BottomNavigationBar(currentIndex: 0, items: [
     BottomNavigationBarItem(
-        label: 'List',
-        icon: IconButton(icon: Icon(Icons.list_alt_rounded), onPressed: () {})),
+        label: 'Refresh',
+        icon: IconButton(
+            icon: Icon(Icons.refresh_rounded),
+            onPressed: () => _refreshList())),
     BottomNavigationBarItem(
         label: 'Sign Out',
         icon: IconButton(
