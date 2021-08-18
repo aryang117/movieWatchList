@@ -48,28 +48,37 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
   Future<void> _getMoviePosterLink() async {
     _posterURL = await getMoviePoster(_movieNameController.text);
 
-    // in case if the movie poster link is given as N/A (movie poster not present/found by api) : edge case
-    if (_posterURL == "N/A")
-      _posterURL =
-          "https://cdn.mos.cms.futurecdn.net/j6reMf3QEuGWFE7FkVmoyT-1200-80.jpg";
+    if (_posterURL.length != 0 && _posterURL != "null") {
+      // in case if the movie poster link is given as N/A (movie poster not present/found by api) : edge case
+      if (_posterURL == "N/A")
+        _posterURL =
+            "https://cdn.mos.cms.futurecdn.net/j6reMf3QEuGWFE7FkVmoyT-1200-80.jpg";
 
-    //updating the UI as we have a new poster
-    setState(() {
-      print("updated poster!");
-    });
+      //updating the UI as we have a new poster
+      setState(() {
+        print("updated poster!");
+      });
+    } else {
+      displaySnackbarforNoMovieFound(context);
+    }
   }
 
   //updates values in the DB
   Future<void> _updateValues() async {
     if (_posterURL == _prevURL) await _getMoviePosterLink();
 
-    final _updatedMovieData =
-        MovieDB(_movieNameController.text, _dirNameController.text, _posterURL);
+    print("new poster url " + _posterURL);
+    if (_posterURL.length != 0 && _posterURL != "null") {
+      final _updatedMovieData = MovieDB(
+          _movieNameController.text, _dirNameController.text, _posterURL);
 
-    setState(() {
-      Hive.box('movieDB').putAt(widget.index, _updatedMovieData);
-    });
-    Navigator.pop(context);
+      setState(() {
+        Hive.box('movieDB').putAt(widget.index, _updatedMovieData);
+      });
+      Navigator.pop(context);
+    } else {
+      displaySnackbarforNoMovieFound(context);
+    }
   }
 
   @override
