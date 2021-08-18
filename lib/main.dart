@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 //Hive package
@@ -10,7 +11,9 @@ import 'package:yellowclassactual/Screens/LoginScreen.dart';
 import 'Models/movieDB.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -28,6 +31,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  MyHomePage({Key? key, required this.isUserSignedIn}) : super(key: key);
+
+  final bool isUserSignedIn;
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
