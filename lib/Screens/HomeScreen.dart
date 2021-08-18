@@ -40,29 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(currentIndex: 0, items: [
-        BottomNavigationBarItem(
-            label: 'List',
-            icon: IconButton(
-                icon: Icon(Icons.list_alt_rounded), onPressed: () {})),
-        BottomNavigationBarItem(
-            label: 'Sign Out',
-            icon: IconButton(
-                icon: Icon(Icons.logout_rounded),
-                onPressed: () {
-                  _firebaseAuth.signOut();
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Signed Out Successfully')));
-
-                  Navigator.pop(context);
-                }))
-      ]),
+      bottomNavigationBar: _bottomNavigationBar(_firebaseAuth, context),
       body: Container(
-        padding: const EdgeInsets.only(top: 0),
         child: SingleChildScrollView(
           child: Column(children: [
-            // Text(Hive.box('movieDB').values.last),
             SizedBox(
                 height: MediaQuery.of(context).size.height,
                 child:
@@ -77,6 +58,29 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
+// Implemented a quick bottomnavbar
+BottomNavigationBar _bottomNavigationBar(
+    FirebaseAuth _firebaseAuth, BuildContext _context) {
+  return BottomNavigationBar(currentIndex: 0, items: [
+    BottomNavigationBarItem(
+        label: 'List',
+        icon: IconButton(icon: Icon(Icons.list_alt_rounded), onPressed: () {})),
+    BottomNavigationBarItem(
+        label: 'Sign Out',
+        icon: IconButton(
+            icon: Icon(Icons.logout_rounded),
+            onPressed: () {
+              _firebaseAuth.signOut();
+
+              ScaffoldMessenger.of(_context).showSnackBar(
+                  SnackBar(content: Text('Signed Out Successfully')));
+
+              Navigator.pop(_context);
+            }))
+  ]);
+}
+
+// fab, shows an add button if the user is logged in, reload button if the user is not
 FloatingActionButton? _floatingActionButton(
     bool _isUserLoggedIn, BuildContext context, Function _refershPage) {
   if (_isUserLoggedIn) {
@@ -109,6 +113,7 @@ FloatingActionButton? _floatingActionButton(
   }
 }
 
+// Building the list of DB items
 ListView _movieListBuilder(
     BuildContext _context, Function _updatedDB, Function _deleteValueFromDB) {
   final _movieBox = Hive.box('movieDB');
@@ -141,6 +146,7 @@ ListView _movieListBuilder(
   );
 }
 
+// Maker for each ListTile
 ListTile _listTileMaker(BuildContext _context, String _posterLink,
     String _movieName, String _dirName, int _index) {
   return ListTile(
@@ -164,6 +170,7 @@ ListTile _listTileMaker(BuildContext _context, String _posterLink,
   );
 }
 
+// Maker for ListTile's thumbnail
 Widget _thumbnailMaker(String posterLink) {
   return ClipRRect(
     borderRadius: BorderRadius.circular(5),
@@ -173,9 +180,6 @@ Widget _thumbnailMaker(String posterLink) {
       child: Image.network(
         posterLink,
         fit: BoxFit.fill,
-        // height: 75,
-        // width: 75,
-        //width: 50,
       ),
     ),
   );
