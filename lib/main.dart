@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding: const EdgeInsets.only(top: 100),
                     child: Text(snapshot.error.toString()));
               else
-                return HomeScreen();
+                return HomeScreen(isUserLoggedIn: widget.isUserSignedIn);
             } else
               return CircularProgressIndicator();
           }),
