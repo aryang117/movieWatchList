@@ -75,8 +75,8 @@
 
   ## Platforms/APIs used
   I had to use some 3rd Party APIs and Platforms to implement some required and optional functionalities of the app
-   - OMDB API (http://www.omdbapi.com/) - to get movie posters
-   - Firebase / Firebase Auth (https://firebase.google.com) - To implement Sign in functionality
+   - [OMDB API](http://www.omdbapi.com/) - to get movie posters
+   - [Firebase / Firebase Auth](https://firebase.google.com) - To implement Sign in functionality
   
   ## Tools Used
   Whilst working on this project, I used many different tools
