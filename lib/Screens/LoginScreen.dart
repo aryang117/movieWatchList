@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:yellowclassactual/Screens/HomeScreen.dart';
-import 'package:yellowclassactual/main.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+
+import 'initializeHive.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
           print("snapshotdata" + snapshot.data.toString());
           if (snapshot.hasData) {
             print(snapshot.data);
-            return MyHomePage(isUserSignedIn: true);
+            return InitializeHive(isUserSignedIn: true);
           } else
             return Scaffold(
               body: Column(
@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
-                                  MyHomePage(isUserSignedIn: _success)));
+                                  InitializeHive(isUserSignedIn: _success)));
                         },
                         child: Text('Sign In!',
                             style: TextStyle(
@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) =>
-                                MyHomePage(isUserSignedIn: false)));
+                                InitializeHive(isUserSignedIn: false)));
                       },
                       child: Text(
                         'Skip for now',
