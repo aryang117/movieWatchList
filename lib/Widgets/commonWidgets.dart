@@ -22,3 +22,8 @@ class CustomTextFormField extends StatelessWidget {
     );
   }
 }
+
+// vertical Padding between elements
+Padding vertPaddingbetweenElements() {
+  return Padding(padding: const EdgeInsets.only(top: 20.0));
+}
