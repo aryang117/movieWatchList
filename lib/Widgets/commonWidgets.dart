@@ -72,3 +72,9 @@ Widget posterPreview(String _posterURL) {
 Padding vertPaddingbetweenElements() {
   return Padding(padding: const EdgeInsets.only(top: 20.0));
 }
+
+// Snackbar displays when the movie is not found
+ScaffoldFeatureController displaySnackbarforNoMovieFound(BuildContext context) {
+  return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('Movie not Found! Please Enter a Valid Movie Name')));
+}
