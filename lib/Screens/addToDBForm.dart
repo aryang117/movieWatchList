@@ -32,7 +32,10 @@ class _AddToDBFormState extends State<AddToDBForm> {
     if (_posterURL.toString() == "null") {
       ScaffoldMessenger.of(context).showSnackBar(_snackBar());
     } else {
-      //TODO : Handle N/A as poster URL, some movies' Poster is not available so the link we get is N/A
+      if (_posterURL == "N/A")
+        _posterURL =
+            "https://cdn.mos.cms.futurecdn.net/j6reMf3QEuGWFE7FkVmoyT-1200-80.jpg";
+
       final newMovieData = MovieDB(
           _movieNameController.text, _dirNameController.text, _posterURL);
 
