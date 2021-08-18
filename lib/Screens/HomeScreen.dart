@@ -17,18 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  void addtoBox() {
-    final MovieDB _newValueToAdd = MovieDB(
-        'movieName$index',
-        "directorName$index",
-        'https://cdn.mos.cms.futurecdn.net/j6reMf3QEuGWFE7FkVmoyT-1200-80.jpg');
-    index++;
-    setState(() {
-      Hive.box('movieDB').add(_newValueToAdd);
-    });
-  }
-
-  void updateDB(int _index, MovieDB _updatedValue) {
+  void updateValuesDB(int _index, MovieDB _updatedValue) {
     setState(() {
       Hive.box('movieDB').putAt(_index, _updatedValue);
     });
@@ -40,13 +29,13 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void _clearAllValues() {
+  void _clearAllValuesDB() {
     setState(() {
       Hive.box('movieDB').clear();
     });
   }
 
-  void reload() {
+  void refreshDBData() {
     setState(() {
       print('list refreshed');
     });
@@ -62,7 +51,8 @@ class _HomeScreenState extends State<HomeScreen> {
             // Text(Hive.box('movieDB').values.last),
             SizedBox(
                 height: MediaQuery.of(context).size.height - 50,
-                child: _movieListBuilder(context, updateDB, deleteValuesDB)),
+                child:
+                    _movieListBuilder(context, updateValuesDB, deleteValuesDB)),
             Row(children: [
               IconButton(
                 onPressed: () {
@@ -73,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: Icon(Icons.replay_outlined),
               ),
               IconButton(
-                onPressed: _clearAllValues,
+                onPressed: _clearAllValuesDB,
                 icon: Icon(Icons.clear_all_rounded),
               )
             ]),
@@ -81,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton:
-          _floatingActionButton(widget.isUserLoggedIn, context, reload),
+          _floatingActionButton(widget.isUserLoggedIn, context, refreshDBData),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterFloat,
     );
