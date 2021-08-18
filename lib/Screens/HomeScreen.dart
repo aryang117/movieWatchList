@@ -120,43 +120,46 @@ ListView _movieListBuilder(
         padding: const EdgeInsets.only(top: 20),
         height: 100,
         child: Dismissible(
-          key: Key(dbItem.toString()),
-          background: Container(
-            color: Colors.red,
-            child: Text('Delete Item'),
-            alignment: Alignment.centerRight,
-            padding: const EdgeInsets.only(right: 20.0),
-          ),
-          onDismissed: (DismissDirection _direction) {
-            _deleteValueFromDB(_index);
-            ScaffoldMessenger.of(_context).showSnackBar(
-                SnackBar(content: Text('Deleted Value at index : $_index')));
-          },
-          child: ListTile(
-            leading: _thumbnailMaker(_movieDB.posterLink),
-            horizontalTitleGap: 20,
-            title: Text(_movieDB.movieName,
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black)),
-            subtitle: Text(_movieDB.directorName,
-                style: TextStyle(
-                  fontSize: 14,
-                )),
-            trailing: IconButton(
-              color: Colors.black,
-              icon: Icon(Icons.edit),
-              onPressed: () {
-                Navigator.of(_context).push(MaterialPageRoute(
-                    builder: (context) => UpdateDBForm(index: _index)));
-              },
+            key: Key(dbItem.toString()),
+            background: Container(
+              color: Colors.red,
+              child: Text('Delete Item'),
+              alignment: Alignment.centerRight,
+              padding: const EdgeInsets.only(right: 20.0),
             ),
-          ),
-        ),
+            onDismissed: (DismissDirection _direction) {
+              _deleteValueFromDB(_index);
+              ScaffoldMessenger.of(_context).showSnackBar(
+                  SnackBar(content: Text('Deleted Value at index : $_index')));
+            },
+            child: _listTileMaker(_context, _movieDB.posterLink,
+                _movieDB.movieName, _movieDB.directorName, _index)),
       );
     },
     itemCount: _movieBox.length,
+  );
+}
+
+ListTile _listTileMaker(BuildContext _context, String _posterLink,
+    String _movieName, String _dirName, int _index) {
+  return ListTile(
+    leading: _thumbnailMaker(_posterLink),
+    horizontalTitleGap: 20,
+    title: Text(_movieName,
+        style: TextStyle(
+            fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black)),
+    subtitle: Text(_dirName,
+        style: TextStyle(
+          fontSize: 14,
+        )),
+    trailing: IconButton(
+      color: Colors.black,
+      icon: Icon(Icons.edit),
+      onPressed: () {
+        Navigator.of(_context).push(MaterialPageRoute(
+            builder: (context) => UpdateDBForm(index: _index)));
+      },
+    ),
   );
 }
 
