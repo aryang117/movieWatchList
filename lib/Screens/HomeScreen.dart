@@ -9,8 +9,9 @@ import '/Models/movieDB.dart';
 int index = 0;
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key, required this.isUserLoggedIn}) : super(key: key);
 
+  final bool isUserLoggedIn;
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -79,21 +80,42 @@ class _HomeScreenState extends State<HomeScreen> {
           ]),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        isExtended: true,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-        backgroundColor: Colors.black,
-        child: Icon(
-          Icons.add,
-          size: 36,
-        ),
-        onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => AddToDBForm()));
-        },
-      ),
+      floatingActionButton:
+          _floatingActionButton(widget.isUserLoggedIn, context, reload),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterFloat,
+    );
+  }
+}
+
+FloatingActionButton? _floatingActionButton(
+    bool _isUserLoggedIn, BuildContext context, Function _refershPage) {
+  if (_isUserLoggedIn) {
+    return FloatingActionButton(
+      isExtended: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+      backgroundColor: Colors.black,
+      child: Icon(
+        Icons.add,
+        size: 36,
+      ),
+      onPressed: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => AddToDBForm()));
+      },
+    );
+  } else {
+    return FloatingActionButton(
+      isExtended: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+      backgroundColor: Colors.black,
+      child: Icon(
+        Icons.refresh,
+        size: 36,
+      ),
+      onPressed: () {
+        _refershPage();
+      },
     );
   }
 }
