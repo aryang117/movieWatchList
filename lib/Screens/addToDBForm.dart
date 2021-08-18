@@ -21,30 +21,32 @@ class _AddToDBFormState extends State<AddToDBForm> {
   final TextEditingController _movieNameController = TextEditingController();
   final TextEditingController _dirNameController = TextEditingController();
 
-  //returns moviePosterLink
-  Future<String> _returnMoviePosterLink() async {
-    return await getMoviePoster(_movieNameController.text);
+  // when the user is done with editing the field, it gets the movie Poster Link
+  Future<void> _getMoviePosterLink() async {
+    _posterURL = await getMoviePoster(_movieNameController.text);
+
+    // in case if the movie poster link is given as N/A (movie poster not present/found by api) : edge case
+    if (_posterURL == "N/A")
+      _posterURL =
+          "https://cdn.mos.cms.futurecdn.net/j6reMf3QEuGWFE7FkVmoyT-1200-80.jpg";
+
+    //updating the UI as we have a new poster
+    setState(() {
+      print("updated poster!");
+    });
   }
 
-  //adds values to the DB
-  Future<void>? _addtoDB() async {
-    _posterURL = await _returnMoviePosterLink();
+  //updates values in the DB
+  Future<void> _addtoDB() async {
+    // await _getMoviePosterLink();
 
-    if (_posterURL.toString() == "null") {
-      ScaffoldMessenger.of(context).showSnackBar(_snackBar());
-    } else {
-      if (_posterURL == "N/A")
-        _posterURL =
-            "https://cdn.mos.cms.futurecdn.net/j6reMf3QEuGWFE7FkVmoyT-1200-80.jpg";
+    final newMovieData =
+        MovieDB(_movieNameController.text, _dirNameController.text, _posterURL);
 
-      final newMovieData = MovieDB(
-          _movieNameController.text, _dirNameController.text, _posterURL);
-
-      setState(() {
-        Hive.box('movieDB').add(newMovieData);
-      });
-      Navigator.pop(context);
-    }
+    setState(() {
+      Hive.box('movieDB').add(newMovieData);
+    });
+    Navigator.pop(context);
   }
 
   @override
@@ -62,9 +64,15 @@ class _AddToDBFormState extends State<AddToDBForm> {
             children: [
               posterPreview(_posterURL),
               vertPaddingbetweenElements(),
-              CustomTextFormField(
-                  textEditingController: _movieNameController,
-                  label: 'Movie Name'),
+              // cannot be separated into it's own stl/stf widget, onEditingComplete won't work!!
+              TextFormField(
+                onEditingComplete: _getMoviePosterLink,
+                controller: _movieNameController,
+                decoration: InputDecoration(
+                    labelText: 'Movie Name',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5))),
+              ),
               vertPaddingbetweenElements(),
               CustomTextFormField(
                   textEditingController: _dirNameController,
@@ -86,7 +94,7 @@ Widget _submitButton(double _widgetWidth, Function addtoDB) {
       width: _widgetWidth,
       child: MaterialButton(
           color: Colors.redAccent[400],
-          child: Text('Update Values',
+          child: Text('Add to DB',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
           onPressed: () => addtoDB()));
 }
