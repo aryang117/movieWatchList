@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:yellowclassactual/API/api.dart';
+import 'package:yellowclassactual/Widgets/commonWidgets.dart';
 
 import '/Models/movieDB.dart';
 
@@ -101,7 +102,7 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
                   ),
                 ),
               ),
-              _vertPaddingbetweenElements(),
+              vertPaddingbetweenElements(),
               TextFormField(
                 onEditingComplete: _getMoviePosterLink,
                 controller: _movieNameController,
@@ -110,15 +111,11 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5))),
               ),
-              _vertPaddingbetweenElements(),
-              TextFormField(
-                controller: _dirNameController,
-                decoration: InputDecoration(
-                    labelText: 'Director Name',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5))),
-              ),
-              _vertPaddingbetweenElements(),
+              vertPaddingbetweenElements(),
+              CustomTextFormField(
+                  textEditingController: _dirNameController,
+                  label: 'Director name'),
+              vertPaddingbetweenElements(),
               Container(
                   height: 60,
                   width: _widthWidgets,
@@ -134,8 +131,4 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
       ),
     );
   }
-}
-
-Padding _vertPaddingbetweenElements() {
-  return Padding(padding: const EdgeInsets.only(top: 20.0));
 }
