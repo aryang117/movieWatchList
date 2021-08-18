@@ -144,25 +144,13 @@ ListView _movieListBuilder(
                 style: TextStyle(
                   fontSize: 14,
                 )),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  color: Colors.black,
-                  icon: Icon(Icons.edit),
-                  onPressed: () {
-                    Navigator.of(_context).push(MaterialPageRoute(
-                        builder: (context) => UpdateDBForm(index: _index)));
-                  },
-                ),
-                IconButton(
-                  color: Colors.black,
-                  icon: Icon(Icons.delete),
-                  onPressed: () {
-                    _deleteValueFromDB(_index);
-                  },
-                )
-              ],
+            trailing: IconButton(
+              color: Colors.black,
+              icon: Icon(Icons.edit),
+              onPressed: () {
+                Navigator.of(_context).push(MaterialPageRoute(
+                    builder: (context) => UpdateDBForm(index: _index)));
+              },
             ),
           ),
         ),
