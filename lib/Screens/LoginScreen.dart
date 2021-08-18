@@ -41,8 +41,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //width of elements
-    final double widthElements = MediaQuery.of(context).size.width - 50;
+    //width of widgets
+    final double _widgetWidth = MediaQuery.of(context).size.width - 50;
 
     return StreamBuilder<User?>(
         stream: _firebaseAuth.authStateChanges(),
@@ -57,45 +57,52 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Center(
-                    child: Container(
-                      height: 60,
-                      width: widthElements,
-                      child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
-                        color: Colors.black,
-                        onPressed: () async {
-                          bool _success = await _signInAnonymously();
-
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  InitializeHive(isUserSignedIn: _success)));
-                        },
-                        child: Text('Sign In!',
-                            style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white)),
-                      ),
-                    ),
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                InitializeHive(isUserSignedIn: false)));
-                      },
-                      child: Text(
-                        'Skip for now',
-                        style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: Colors.grey[700],
-                            fontSize: 16),
-                      )),
+                  _anonymousSignInButton(
+                      _widgetWidth, _signInAnonymously, context),
+                  _skipSignInTextButton(context),
                 ],
               ),
             );
         });
   }
+}
+
+Widget _anonymousSignInButton(
+    double _widgetWidth, Function _signInAnonymously, BuildContext _context) {
+  return Center(
+    child: Container(
+      height: 60,
+      width: _widgetWidth,
+      child: MaterialButton(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+        color: Colors.black,
+        onPressed: () async {
+          bool _success = await _signInAnonymously();
+
+          Navigator.of(_context).push(MaterialPageRoute(
+              builder: (context) => InitializeHive(isUserSignedIn: _success)));
+        },
+        child: Text('Sign In!',
+            style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w500,
+                color: Colors.white)),
+      ),
+    ),
+  );
+}
+
+Widget _skipSignInTextButton(BuildContext _context) {
+  return TextButton(
+      onPressed: () {
+        Navigator.of(_context).push(MaterialPageRoute(
+            builder: (context) => InitializeHive(isUserSignedIn: false)));
+      },
+      child: Text(
+        'Skip for now',
+        style: TextStyle(
+            decoration: TextDecoration.underline,
+            color: Colors.grey[700],
+            fontSize: 16),
+      ));
 }
