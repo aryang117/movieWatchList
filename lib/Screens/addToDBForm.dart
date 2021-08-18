@@ -60,41 +60,17 @@ class _AddToDBFormState extends State<AddToDBForm> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: Container(
-                  height: 250,
-                  width: 175,
-                  child: Card(
-                    // child: FadeInImage(
-                    //     image: NetworkImage(posterURL),
-                    //     fit: BoxFit.fill,
-                    //     placeholder: NetworkImage(
-                    //         'https://pbs.twimg.com/media/E7VuaNRXEAEloYi.jpg')),
-                    color: Colors.white,
-                    elevation: 5,
-                  ),
-                ),
-              ),
-              _vertPaddingbetweenElements(),
+              posterPreview(_posterURL),
+              vertPaddingbetweenElements(),
               CustomTextFormField(
                   textEditingController: _movieNameController,
                   label: 'Movie Name'),
-              _vertPaddingbetweenElements(),
+              vertPaddingbetweenElements(),
               CustomTextFormField(
                   textEditingController: _dirNameController,
                   label: 'Director Name'),
-              _vertPaddingbetweenElements(),
-              Container(
-                  height: 60,
-                  width: _widthWidgets,
-                  child: MaterialButton(
-                    color: Colors.redAccent[400],
-                    child: Text('Add to DB',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500)),
-                    onPressed: _addtoDB,
-                  ))
+              vertPaddingbetweenElements(),
+              _submitButton(_widthWidgets, _addtoDB),
             ],
           ),
         ),
@@ -103,8 +79,16 @@ class _AddToDBFormState extends State<AddToDBForm> {
   }
 }
 
-Padding _vertPaddingbetweenElements() {
-  return Padding(padding: const EdgeInsets.only(top: 20.0));
+// main CTA of the updateDB Form, updates the values into the DB
+Widget _submitButton(double _widgetWidth, Function addtoDB) {
+  return Container(
+      height: 60,
+      width: _widgetWidth,
+      child: MaterialButton(
+          color: Colors.redAccent[400],
+          child: Text('Update Values',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+          onPressed: () => addtoDB()));
 }
 
 //scaffold message in case adding to DB fails
