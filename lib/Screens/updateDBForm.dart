@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:yellowclassactual/API/api.dart';
 
 import '/Models/movieDB.dart';
 
-String posterURL = "";
+String _posterURL = "";
 
 //TODO : Add the api functionality to this one too! Currently it just returns a static link to Halo Infinite's cover photo, not the movie poster
 
@@ -32,9 +33,25 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
     _dirNameController.text = curValues.directorName;
   }
 
-  // actually adds data to the db
-  void addtoBox(MovieDB _movieDB) {
-    Hive.box('movieDB').putAt(widget.index, _movieDB);
+  //returns moviePosterLink
+  Future<String> _returnMoviePosterLink() async {
+    return await getMoviePoster(_movieNameController.text);
+  }
+
+  //updates values in the DB
+  Future<void> _updateValues() async {
+    _posterURL = await _returnMoviePosterLink();
+    final _updatedMovieData =
+        MovieDB(_movieNameController.text, _dirNameController.text, _posterURL);
+
+    if (_posterURL == "N/A")
+      _posterURL =
+          "https://cdn.mos.cms.futurecdn.net/j6reMf3QEuGWFE7FkVmoyT-1200-80.jpg";
+
+    setState(() {
+      Hive.box('movieDB').putAt(widget.index, _updatedMovieData);
+    });
+    Navigator.pop(context);
   }
 
   @override
@@ -87,22 +104,11 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
                   height: 60,
                   width: _widthWidgets,
                   child: MaterialButton(
-                    color: Colors.redAccent[400],
-                    child: Text('Update Values',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500)),
-                    onPressed: () {
-                      final newMovieData = MovieDB(
-                          _movieNameController.text,
-                          _dirNameController.text,
-                          'https://cdn.mos.cms.futurecdn.net/j6reMf3QEuGWFE7FkVmoyT-1200-80.jpg');
-
-                      setState(() {
-                        addtoBox(newMovieData);
-                      });
-                      Navigator.pop(context);
-                    },
-                  ))
+                      color: Colors.redAccent[400],
+                      child: Text('Update Values',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w500)),
+                      onPressed: _updateValues))
             ],
           ),
         ),
