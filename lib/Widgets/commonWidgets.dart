@@ -30,21 +30,42 @@ class CustomTextFormField extends StatelessWidget {
 
 // Poster Previews shown to the user when they enter the movie names in the addtoDB and UpdateDB Form
 Widget posterPreview(String _posterURL) {
-  return ClipRRect(
-    borderRadius: BorderRadius.circular(5),
-    child: Container(
-      height: 250,
-      width: 175,
-      child: Card(
-        child: FadeInImage(
-            image: NetworkImage(_posterURL),
-            fit: BoxFit.fill,
-            placeholder: NetworkImage(
-                'https://pbs.twimg.com/media/E7VuaNRXEAEloYi.jpg')),
-        elevation: 5,
+  if (_posterURL.length != 0) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        height: 250,
+        width: 175,
+        child: Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          child: FadeInImage(
+              image: NetworkImage(_posterURL),
+              fit: BoxFit.fill,
+              placeholder: NetworkImage(
+                  'https://pbs.twimg.com/media/E7VuaNRXEAEloYi.jpg')),
+          elevation: 5,
+        ),
       ),
-    ),
-  );
+    );
+  } else {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        height: 250,
+        width: 175,
+        child: Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          child: Image.network(
+            'https://pbs.twimg.com/media/E7VuaNRXEAEloYi.jpg',
+            fit: BoxFit.fitHeight,
+          ),
+          elevation: 5,
+        ),
+      ),
+    );
+  }
 }
 
 // vertical Padding between elements
