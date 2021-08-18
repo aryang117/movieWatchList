@@ -6,8 +6,6 @@ import 'package:yellowclassactual/Screens/updateDBForm.dart';
 
 import '/Models/movieDB.dart';
 
-int index = 0;
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, required this.isUserLoggedIn}) : super(key: key);
 
@@ -116,13 +114,13 @@ ListView _movieListBuilder(
   return ListView.builder(
     itemBuilder: (_context, _index) {
       final _movieDB = _movieBox.getAt(_index) as MovieDB;
-      final DBItem = _movieBox.length;
+      final dbItem = _movieBox.length;
 
       return Container(
         padding: const EdgeInsets.only(top: 20),
         height: 100,
         child: Dismissible(
-          key: Key(DBItem.toString()),
+          key: Key(dbItem.toString()),
           background: Container(
             color: Colors.red,
             child: Text('Delete Item'),
