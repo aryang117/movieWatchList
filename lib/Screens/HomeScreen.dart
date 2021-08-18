@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:hive/hive.dart';
@@ -15,6 +17,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
   void updateValuesDB(int _index, MovieDB _updatedValue) {
     setState(() {
       Hive.box('movieDB').putAt(_index, _updatedValue);
@@ -36,6 +40,24 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(currentIndex: 0, items: [
+        BottomNavigationBarItem(
+            label: 'List',
+            icon: IconButton(
+                icon: Icon(Icons.list_alt_rounded), onPressed: () {})),
+        BottomNavigationBarItem(
+            label: 'Sign Out',
+            icon: IconButton(
+                icon: Icon(Icons.logout_rounded),
+                onPressed: () {
+                  _firebaseAuth.signOut();
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Signed Out Successfully')));
+
+                  Navigator.pop(context);
+                }))
+      ]),
       body: Container(
         padding: const EdgeInsets.only(top: 0),
         child: SingleChildScrollView(
@@ -50,8 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton:
           _floatingActionButton(widget.isUserLoggedIn, context, refreshDBData),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
