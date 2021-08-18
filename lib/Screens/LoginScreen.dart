@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'initializeHive.dart';
 
@@ -56,9 +57,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // Anonymouse Sign In Button
                   _anonymousSignInButton(
                       _widgetWidth, _signInAnonymously, context),
+
+                  // Skip Sign In Button
                   _skipSignInTextButton(context),
+
+                  // Google Sign In Button
+                  _googleSignInButton(_firebaseAuth, context),
                 ],
               ),
             );
@@ -66,6 +73,34 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
+// Google Sign In Button, isUserSignedIn is passed as true, therefore there is an add button
+Widget _googleSignInButton(FirebaseAuth _firebaseAuth, BuildContext _context) {
+  return SignInButton(Buttons.Google, onPressed: () async {
+    UserCredential userCredential;
+
+    final GoogleSignInAccount? _googleSignInAccount =
+        await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication _googleAuth =
+        await _googleSignInAccount!.authentication;
+
+    final _googleAuthCred = GoogleAuthProvider.credential(
+        accessToken: _googleAuth.accessToken, idToken: _googleAuth.idToken);
+
+    userCredential = await _firebaseAuth.signInWithCredential(_googleAuthCred);
+
+    final user = userCredential.user;
+
+    try {
+      ScaffoldMessenger.of(_context).showSnackBar(
+          SnackBar(content: Text('Sign In ${user!.uid} with Google')));
+    } catch (e) {
+      ScaffoldMessenger.of(_context)
+          .showSnackBar(SnackBar(content: Text('Failed')));
+    }
+  });
+}
+
+// Anon Sign in Button isUserSignedIn is passed as true, therefore there is  add button
 Widget _anonymousSignInButton(
     double _widgetWidth, Function _signInAnonymously, BuildContext _context) {
   return Center(
@@ -91,6 +126,7 @@ Widget _anonymousSignInButton(
   );
 }
 
+// Skip Sign in Button, isUserSignedIn is passed as false, therefore no add button, only reload button in the home screen
 Widget _skipSignInTextButton(BuildContext _context) {
   return TextButton(
       onPressed: () {
