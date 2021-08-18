@@ -48,23 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(children: [
             // Text(Hive.box('movieDB').values.last),
             SizedBox(
-                height: MediaQuery.of(context).size.height - 50,
+                height: MediaQuery.of(context).size.height,
                 child:
                     _movieListBuilder(context, updateValuesDB, deleteValuesDB)),
-            Row(children: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    print('reload');
-                  });
-                },
-                icon: Icon(Icons.replay_outlined),
-              ),
-              IconButton(
-                onPressed: _clearAllValuesDB,
-                icon: Icon(Icons.clear_all_rounded),
-              )
-            ]),
           ]),
         ),
       ),
