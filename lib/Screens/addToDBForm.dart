@@ -98,9 +98,3 @@ Widget _submitButton(double _widgetWidth, Function addtoDB) {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
           onPressed: () => addtoDB()));
 }
-
-//scaffold message in case adding to DB fails
-SnackBar _snackBar() {
-  return SnackBar(
-      content: Text('Movie not Found! Please Enter a valid movie name!'));
-}
