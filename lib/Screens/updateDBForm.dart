@@ -13,8 +13,6 @@ String _posterURL = "";
 // click on the update values and not save the field (i.e click on the cta and not submit the value)
 bool _isPosterUpdated = false;
 
-//TODO : Add the api functionality to this one too! Currently it just returns a static link to Halo Infinite's cover photo, not the movie poster
-
 class UpdateDBForm extends StatefulWidget {
   const UpdateDBForm({Key? key, required this.index}) : super(key: key);
 
@@ -63,7 +61,9 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
 
   //updates values in the DB
   Future<void> _updateValues() async {
-    if (!_isPosterUpdated) await _getMoviePosterLink();
+    await _getMoviePosterLink();
+
+    print(_isPosterUpdated);
 
     final _updatedMovieData =
         MovieDB(_movieNameController.text, _dirNameController.text, _posterURL);
@@ -87,22 +87,10 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(5),
-                child: Container(
-                  height: 250,
-                  width: 175,
-                  child: Card(
-                    child: FadeInImage(
-                        image: NetworkImage(_posterURL),
-                        fit: BoxFit.fill,
-                        placeholder: NetworkImage(
-                            'https://pbs.twimg.com/media/E7VuaNRXEAEloYi.jpg')),
-                    elevation: 5,
-                  ),
-                ),
-              ),
+              posterPreview(_posterURL),
               vertPaddingbetweenElements(),
+
+              // cannot be separated into it's own stl/stf widget, if done onEditingComplete will call every frame!!
               TextFormField(
                 onEditingComplete: _getMoviePosterLink,
                 controller: _movieNameController,
@@ -116,19 +104,23 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
                   textEditingController: _dirNameController,
                   label: 'Director name'),
               vertPaddingbetweenElements(),
-              Container(
-                  height: 60,
-                  width: _widthWidgets,
-                  child: MaterialButton(
-                      color: Colors.redAccent[400],
-                      child: Text('Update Values',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w500)),
-                      onPressed: _updateValues))
+              _submitButton(_widthWidgets, _updateValues),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+// main CTA of the updateDB Form, updates the values into the DB
+Widget _submitButton(double _widgetWidth, Function _updateValues) {
+  return Container(
+      height: 60,
+      width: _widgetWidth,
+      child: MaterialButton(
+          color: Colors.redAccent[400],
+          child: Text('Update Values',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+          onPressed: () => _updateValues()));
 }
