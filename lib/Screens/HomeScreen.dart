@@ -132,25 +132,13 @@ ListView _movieListBuilder(
       return Container(
         padding: const EdgeInsets.only(top: 20),
         height: 100,
-        child: Dismissible(
-            key: Key(_curItemIndex.toString()),
-            background: Container(
-              color: Colors.red,
-              child: Text('Delete Item'),
-              alignment: Alignment.centerRight,
-              padding: const EdgeInsets.only(right: 20.0),
-            ),
-            onDismissed: (DismissDirection _direction) {
-              _deleteValueFromDB(_index);
-              ScaffoldMessenger.of(_context).showSnackBar(
-                  SnackBar(content: Text('Deleted Value at index : $_index')));
-            },
-            child: _listTileMaker(
-                _context,
-                _curMovieDBItem.posterLink,
-                _curMovieDBItem.movieName,
-                _curMovieDBItem.directorName,
-                _index)),
+        child: _listTileMaker(
+            _context,
+            _curMovieDBItem.posterLink,
+            _curMovieDBItem.movieName,
+            _curMovieDBItem.directorName,
+            _index,
+            _deleteValueFromDB),
       );
     },
     itemCount: _movieBox.length,
@@ -158,8 +146,13 @@ ListView _movieListBuilder(
 }
 
 // Maker for each ListTile
-ListTile _listTileMaker(BuildContext _context, String _posterLink,
-    String _movieName, String _dirName, int _index) {
+ListTile _listTileMaker(
+    BuildContext _context,
+    String _posterLink,
+    String _movieName,
+    String _dirName,
+    int _index,
+    Function _deleteValueFromDB) {
   return ListTile(
     leading: _thumbnailMaker(_posterLink),
     horizontalTitleGap: 20,
@@ -171,13 +164,25 @@ ListTile _listTileMaker(BuildContext _context, String _posterLink,
           fontSize: 14,
         )),
     //TODO : add a delete icon as well, as per requirements
-    trailing: IconButton(
-      color: Colors.black,
-      icon: Icon(Icons.edit),
-      onPressed: () {
-        Navigator.of(_context).push(MaterialPageRoute(
-            builder: (context) => UpdateDBForm(index: _index)));
-      },
+    trailing: Container(
+      width: 100,
+      child: Row(
+        children: [
+          IconButton(
+            color: Colors.black,
+            icon: Icon(Icons.edit),
+            onPressed: () {
+              Navigator.of(_context).push(MaterialPageRoute(
+                  builder: (context) => UpdateDBForm(index: _index)));
+            },
+          ),
+          IconButton(
+            color: Colors.black,
+            icon: Icon(Icons.delete),
+            onPressed: () => _deleteValueFromDB(_index),
+          ),
+        ],
+      ),
     ),
   );
 }
