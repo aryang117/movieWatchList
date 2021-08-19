@@ -51,7 +51,7 @@
    - Click on the code button and then on Download zip
    - Extract the zip and you have the project folder!
     
-   [Other ways to get the project](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository)
+   [Other ways to get the project repo](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository)
   
   ## Build
   Now, to actually build the app
