@@ -7,6 +7,7 @@ import 'package:hive/hive.dart';
 // Other Screens
 import 'addToDBForm.dart';
 import 'updateDBForm.dart';
+import '/Screens/LoginScreen.dart';
 
 import '/Models/movieDB.dart';
 
@@ -94,7 +95,8 @@ BottomNavigationBar _bottomNavigationBar(FirebaseAuth _firebaseAuth,
               ScaffoldMessenger.of(_context).showSnackBar(
                   SnackBar(content: Text('Signed Out Successfully')));
 
-              Navigator.pop(_context);
+              Navigator.push(_context,
+                  MaterialPageRoute(builder: (_context) => LoginScreen()));
             }))
   ]);
 }
