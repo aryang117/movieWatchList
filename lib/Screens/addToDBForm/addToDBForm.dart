@@ -60,7 +60,7 @@ class _AddToDBFormState extends State<AddToDBForm> {
 
   //add new values in the DB
   Future<void> _addtoDB() async {
-    if (_curApiData.length == 0 ||
+    if (_curApiData.last.length == 0 ||
         _curApiData.last == "null" ||
         _curApiData == _prevApiData) await _getMoviePosterLink();
 
