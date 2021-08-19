@@ -107,6 +107,6 @@
   - I added placeholder images in case if the API doesn't return a link for the movies (such as a N/A), this seems to be an edge case, I encountered while added Iron Man 3 movie.
   - I also added placeholder images in the addToForm screen, it will display that placeholder image until the user enters a movie and the app gets it's poster's link.
   #### Anonymous Sign in
-  Don't want to go through the hassle to sign in via Google? Don't worry, I added a Anonymous Sign in button, this will allow you to Sign in anonymously and still use all of the Signed in user functionality (mainly adding new movies) (You will have to enable Anonymouse Sign in in [Firebase console](https://console.firebase.google.com))
+  Don't want to go through the hassle to sign in via Google? Don't worry, I added a Anonymous Sign in button, this will allow you to Sign in anonymously and still use all of the Signed in user functionality (mainly adding new movies).
   
   ### [Back to top](#yellow-class-take-home-task)
