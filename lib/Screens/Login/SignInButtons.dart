@@ -3,10 +3,15 @@ import 'package:flutter/material.dart';
 // 3rd Party Packages
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 // screens
 import '../initHive/initializeHive.dart';
+
+final _anonSignInStyle = GoogleFonts.poppins(fontSize: 20, color: Colors.white);
+final _skipSignIn = GoogleFonts.poppins(
+    fontSize: 16, color: Colors.black54, decoration: TextDecoration.underline);
 
 // Google Sign In Button, isUserSignedIn is passed as true, therefore there is an add button
 Widget googleSignInButton(
@@ -14,7 +19,8 @@ Widget googleSignInButton(
   return Container(
     width: _width,
     height: 60,
-    child: SignInButton(Buttons.Google, onPressed: () async {
+    child: SignInButton(Buttons.Google, text: 'Sign in with Google',
+        onPressed: () async {
       UserCredential userCredential;
 
       final GoogleSignInAccount? _googleSignInAccount =
@@ -57,8 +63,7 @@ Widget anonymousSignInButton(
           Navigator.of(_context).push(MaterialPageRoute(
               builder: (context) => InitializeHive(isUserSignedIn: _success)));
         },
-        child: Text('Sign In Anonymously!',
-            style: TextStyle(fontSize: 20, color: Colors.white)),
+        child: Text('Sign In Anonymously', style: _anonSignInStyle),
       ),
     ),
   );
@@ -71,11 +76,5 @@ Widget skipSignInTextButton(BuildContext _context) {
         Navigator.of(_context).push(MaterialPageRoute(
             builder: (context) => InitializeHive(isUserSignedIn: false)));
       },
-      child: Text(
-        'Skip for now',
-        style: TextStyle(
-            decoration: TextDecoration.underline,
-            color: Colors.grey[700],
-            fontSize: 16),
-      ));
+      child: Text('Skip for now', style: _skipSignIn));
 }

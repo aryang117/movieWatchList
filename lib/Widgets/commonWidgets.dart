@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+//3rd party packages
+import 'package:google_fonts/google_fonts.dart';
+
 // This File contains widgets that are being used throughout the app
 // and are very similar to each other, therefore they are being standardized
 
@@ -18,11 +21,13 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _labelStyle = GoogleFonts.poppins();
     return TextFormField(
-      //onEditingComplete: () => ,
+      style: _labelStyle,
       controller: textEditingController,
       decoration: InputDecoration(
           labelText: label,
+          labelStyle: _labelStyle,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(5))),
     );
   }
@@ -49,19 +54,17 @@ Widget posterPreview(String _posterURL) {
       ),
     );
   } else {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: Container(
-        height: 250,
-        width: 175,
-        child: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    return Card(
+      elevation: 5,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(5),
+        child: Container(
+          height: 250,
+          width: 175,
           child: Image.network(
             'https://pbs.twimg.com/media/E7VuaNRXEAEloYi.jpg',
-            fit: BoxFit.fitHeight,
+            fit: BoxFit.cover,
           ),
-          elevation: 5,
         ),
       ),
     );

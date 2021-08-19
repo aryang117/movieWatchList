@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 // 3rd party packages
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // model file
 import '/Models/movieDB.dart';
@@ -97,6 +98,7 @@ class _AddToDBFormState extends State<AddToDBForm> {
                 onEditingComplete: _getMoviePosterLink,
                 controller: _movieNameController,
                 decoration: InputDecoration(
+                    labelStyle: GoogleFonts.poppins(),
                     labelText: 'Movie Name',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5))),
@@ -115,6 +117,10 @@ class _AddToDBFormState extends State<AddToDBForm> {
   }
 }
 
+// button text style
+final _labelStyle = GoogleFonts.poppins(
+    fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white);
+
 // main CTA of the updateDB Form, updates the values into the DB
 Widget _submitButton(double _widgetWidth, Function addtoDB) {
   return Container(
@@ -123,10 +129,6 @@ Widget _submitButton(double _widgetWidth, Function addtoDB) {
       child: MaterialButton(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
           color: Colors.black,
-          child: Text('Add to DB',
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white)),
+          child: Text('Add to DB', style: _labelStyle),
           onPressed: () => addtoDB()));
 }

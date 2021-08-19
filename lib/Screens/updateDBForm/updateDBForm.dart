@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 // 3rd party packages
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // api operations
 import '/API/api.dart';
@@ -112,10 +113,12 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
 
               // cannot be separated into it's own stl/stf widget, if done onEditingComplete will call every frame!!
               TextFormField(
+                style: GoogleFonts.poppins(),
                 onEditingComplete: _getMoviePosterLink,
                 controller: _movieNameController,
                 decoration: InputDecoration(
                     labelText: 'Movie Name',
+                    labelStyle: GoogleFonts.poppins(),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5))),
               ),
@@ -133,6 +136,10 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
   }
 }
 
+// buttonStyle
+final _buttonTextStyle = GoogleFonts.poppins(
+    fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white);
+
 // main CTA of the updateDB Form, updates the values into the DB
 Widget _submitButton(double _widgetWidth, Function _updateValues) {
   return Container(
@@ -140,10 +147,6 @@ Widget _submitButton(double _widgetWidth, Function _updateValues) {
       width: _widgetWidth,
       child: MaterialButton(
           color: Colors.black,
-          child: Text('Update Values',
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white)),
+          child: Text('Update Values', style: _buttonTextStyle),
           onPressed: () => _updateValues()));
 }

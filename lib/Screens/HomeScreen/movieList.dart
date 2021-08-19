@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 
 // 3rd Party Packages
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // Other Screens
 import '../updateDBForm/updateDBForm.dart';
 
 import '/Models/movieDB.dart';
+
+final TextStyle _listTitle = GoogleFonts.poppins(
+    fontSize: 22, fontWeight: FontWeight.w500, color: Colors.black87);
+
+final TextStyle _listSubTitle =
+    GoogleFonts.poppins(fontSize: 16, color: Colors.black54);
 
 // Building the list of DB items
 Widget movieListBuilder(
@@ -85,17 +92,9 @@ Widget _listContent(String _movieName, String _dirName, String _posterLink) {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: 164,
-                child: Text(_movieName,
-                    style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black87)),
-              ),
+              Container(width: 164, child: Text(_movieName, style: _listTitle)),
               Padding(padding: const EdgeInsets.only(top: 5)),
-              Text(_dirName,
-                  style: TextStyle(fontSize: 16, color: Colors.black54)),
+              Text(_dirName, style: _listSubTitle)
             ],
           ),
         ),
