@@ -1,17 +1,7 @@
 # Table of Contents
-  - **[Overview](#yellow-class-take-home-task-moviedb)**
-    -  [Problem Statement](#problem-statement)
-    -  [Status](#status)
-  - **[Building And Installation](#building-&-installation)**
-    - [Pre-Requistes](#prerequisites)
-    - [Cloning/Downloading the Project](#cloning-the-project-repo)
-    - [Building the App](#build)
-    - [Installation](#installation)
-  - **[Technical Discussion](#technical-discussion)**
-    - [Packages](#packages-used)
-    - [Platform/APIs Used](#platform-and-apis-used)
-    - [Tools I Used](#tools-used)
-    - [Features Implemented](#features-implmented)
+  - [Overview](#yellow-class-take-home-task-moviedb)
+  - [Building and Installation](#building-and-installation)
+  - [Technical Discussion](#technical-discussion)
 
 # Yellow Class Take Home Task MovieDB
   This repository was made for Yellow Class's take home task. 
@@ -40,7 +30,7 @@
   - The App also implements Firebase (Authentication) allowing users to Sign in Anonymously, Sign in via Google or Skip Sign In (Sign in Later option, but user cannot add new movies now)
   - The authentication is persistent, i.e, once the user logs in, he/she will be logged in until he/she logs out, they will be logged-in even if they restart the app (unless they log out)
 
-  # Building & Installation
+  # Building and Installation
   ## Prerequisites
   To build this app, you will need -
   - [Flutter SDK](https://flutter.dev)
