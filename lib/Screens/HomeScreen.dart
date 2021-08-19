@@ -163,27 +163,36 @@ ListTile _listTileMaker(
         style: TextStyle(
           fontSize: 14,
         )),
-    //TODO : add a delete icon as well, as per requirements
     trailing: Container(
       width: 100,
       child: Row(
         children: [
-          IconButton(
-            color: Colors.black,
-            icon: Icon(Icons.edit),
-            onPressed: () {
-              Navigator.of(_context).push(MaterialPageRoute(
-                  builder: (context) => UpdateDBForm(index: _index)));
-            },
-          ),
-          IconButton(
-            color: Colors.black,
-            icon: Icon(Icons.delete),
-            onPressed: () => _deleteValueFromDB(_index),
-          ),
+          _editIcon(_index, _context),
+          _deleteIcon(_index, _deleteValueFromDB),
         ],
       ),
     ),
+  );
+}
+
+// the delete icon for each list tile
+Widget _deleteIcon(int _index, Function _deleteValueFromDB) {
+  return IconButton(
+    color: Colors.black,
+    icon: Icon(Icons.delete),
+    onPressed: () => _deleteValueFromDB(_index),
+  );
+}
+
+// the edit icon for each list tile
+Widget _editIcon(int _index, BuildContext _context) {
+  return IconButton(
+    color: Colors.black,
+    icon: Icon(Icons.edit),
+    onPressed: () {
+      Navigator.of(_context).push(
+          MaterialPageRoute(builder: (context) => UpdateDBForm(index: _index)));
+    },
   );
 }
 
