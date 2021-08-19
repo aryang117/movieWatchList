@@ -5,7 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 // other screens
-import 'HomeScreen.dart';
+import 'HomeScreen/HomeScreen.dart';
 
 // All this widget does it initialize hive,
 // if there's an error then the error
