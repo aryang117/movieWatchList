@@ -51,7 +51,7 @@
    - Click on the code button and then on Download zip
    - Extract the zip and you have the project folder!
     
-   [Other ways](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository)
+   [Other ways to get the project](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository)
   
   ## Build
   Now, to actually build the app
@@ -82,12 +82,6 @@
   I had to use some 3rd Party APIs and Platforms to implement some required and optional functionalities of the app
    - [OMDB API](http://www.omdbapi.com/) - to get movie posters
    - [Firebase / Firebase Auth](https://firebase.google.com) - To implement Sign in functionality
-  
-  ## Tools Used
-  Whilst working on this project, I used many different tools
-  - Visual Studio Code (My Main Editor)
-  - Windows Terminal (Main Terminal)
-  - Android Emulator (To debug the apps)
 
   ## Features Implemented
   
