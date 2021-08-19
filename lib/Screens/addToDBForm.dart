@@ -1,14 +1,30 @@
 import 'package:flutter/material.dart';
 
+// 3rd party packages
 import 'package:hive_flutter/hive_flutter.dart';
 
+// model file
 import '/Models/movieDB.dart';
+
+// api operations
 import '/API/api.dart';
 
+// file containing common widgets used throughout the app
 import '/Widgets/commonWidgets.dart';
 
 String _posterURL = "";
+
+// stores the status of the updation of posterURL, happens when the user may directly
+// click on the update values and not save the field (i.e click on the cta and not submit the value)
 String _prevURL = "";
+
+// This is the form that allows the user to add new movies
+// The user can specify the movie name and director name
+// if the user enters the movie name and press the enter/submit key on their mobil keyboard,
+// the poster of the movie is then loaded
+// if the user directly presses the CTA, the movie poster is still loaded
+// the CTA will display a snackbar if the movie is not found by the api
+// if the movie poster is found by the api, there's a placeholder img link [line 44], that is put instead of a NA or null
 
 class AddToDBForm extends StatefulWidget {
   const AddToDBForm({Key? key}) : super(key: key);
@@ -41,7 +57,7 @@ class _AddToDBFormState extends State<AddToDBForm> {
     }
   }
 
-  //updates values in the DB
+  //add new values in the DB
   Future<void> _addtoDB() async {
     if (_posterURL.length == 0 ||
         _posterURL == "null" ||

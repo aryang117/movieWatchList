@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
 
+// 3rd party packages
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:yellowclassactual/API/api.dart';
-import 'package:yellowclassactual/Widgets/commonWidgets.dart';
+
+// api operations
+import '/API/api.dart';
+
+// file containing common widgets used throughout the app
+import '/Widgets/commonWidgets.dart';
 
 import '/Models/movieDB.dart';
 
 //store the url of the Poster
 String _posterURL = "";
 
-// stores the status of the updation of posterURL, happens when the user may directly
-// click on the update values and not save the field (i.e click on the cta and not submit the value)
+// stores the previous posterURL, that is loaded from the previous value
 String _prevURL = "";
+
+// This is the form that allows the user to edit existing movies
+// The user can specify the movie name and director name, the name that they previously added is put in the field by default
+// if the user enters the movie name and press the enter/submit key on their mobil keyboard,
+// the poster of the movie is then loaded
+// if the user directly presses the CTA, the movie poster is still loaded
+// the CTA will display a snackbar if the movie is not found by the api
+// if the movie poster is found by the api, there's a placeholder img link [line 63], that is put instead of a NA or null
 
 class UpdateDBForm extends StatefulWidget {
   const UpdateDBForm({Key? key, required this.index}) : super(key: key);
@@ -38,6 +50,7 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
     _prevURL = curValues.posterLink;
   }
 
+  // we get the past values as soon as the widget initializes
   @override
   void initState() {
     super.initState();

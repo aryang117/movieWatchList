@@ -5,9 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 
+// other screens
 import '/Screens/LoginScreen.dart';
+
 import 'Models/movieDB.dart';
 
+// Initializing hive and Firebase as soon as the app starts loading
+// also registering our TypeAdapter
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();

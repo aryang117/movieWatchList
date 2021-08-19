@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
+// 3rd party packages
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:yellowclassactual/Widgets/commonWidgets.dart';
 
+// file containing common widgets used throughout the app
+import '/Widgets/commonWidgets.dart';
+
+//other screens
 import 'initializeHive.dart';
 
+// This is the first screen that the user will see, if they opened the app for the first time or if they have not logged in
+// Has 3 CTA, to sign in via Google, sign in Anonymously and skipping sign in altogether
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
