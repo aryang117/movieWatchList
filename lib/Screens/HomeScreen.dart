@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 // 3rd party packages
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:hive/hive.dart';
-import 'package:yellowclassactual/Widgets/commonWidgets.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 // Other Screens
 import 'addToDBForm.dart';
@@ -136,31 +135,34 @@ FloatingActionButton? _floatingActionButton(
 }
 
 // Building the list of DB items
-ListView _movieListBuilder(
+Widget _movieListBuilder(
     BuildContext _context, Function _updatedDB, Function _deleteValueFromDB) {
   // opening the box to render the list
   final _movieBox = Hive.box('movieDB');
-  return ListView.builder(
-    itemBuilder: (_context, _index) {
-      // current item object in hive
-      final _curMovieDBItem = _movieBox.getAt(_index) as MovieDB;
-      // current item index in hive
-      final _curItemIndex = _movieBox.length;
+  return ValueListenableBuilder(
+      valueListenable: _movieBox.listenable(),
+      builder: (_context, _movieBox, _) {
+        final _movieListBuilder = Hive.box('movieDB');
+        return ListView.builder(
+          itemBuilder: (_context, _index) {
+            // current item object in hive
+            final _curMovieDBItem = _movieListBuilder.getAt(_index) as MovieDB;
 
-      return Container(
-        padding: const EdgeInsets.only(top: 10, right: 10, left: 10),
-        height: 120,
-        child: _listTileMaker(
-            _context,
-            _curMovieDBItem.posterLink,
-            _curMovieDBItem.movieName,
-            _curMovieDBItem.directorName,
-            _index,
-            _deleteValueFromDB),
-      );
-    },
-    itemCount: _movieBox.length,
-  );
+            return Container(
+              padding: const EdgeInsets.only(top: 10, right: 10, left: 10),
+              height: 120,
+              child: _listTileMaker(
+                  _context,
+                  _curMovieDBItem.posterLink,
+                  _curMovieDBItem.movieName,
+                  _curMovieDBItem.directorName,
+                  _index,
+                  _deleteValueFromDB),
+            );
+          },
+          itemCount: _movieListBuilder.length,
+        );
+      });
 }
 
 // Maker for each ListTile
