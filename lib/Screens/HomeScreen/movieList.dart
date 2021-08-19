@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 
 // 3rd Party Packages
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 // Other Screens
-import '../Login/LoginScreen.dart';
-import '../addToDBForm/addToDBForm.dart';
 import '../updateDBForm/updateDBForm.dart';
 
 import '/Models/movieDB.dart';
