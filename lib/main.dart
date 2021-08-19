@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 
 // other screens
-import '/Screens/LoginScreen.dart';
+import 'Screens/Login/LoginScreen.dart';
 
 import 'Models/movieDB.dart';
 

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 //Screens
-import '../LoginScreen.dart';
+import '../Login/LoginScreen.dart';
 
 // Implemented a quick bottomnavbar, allows you to sign out or clear all values [only if u're logged in]
 BottomNavigationBar bottomNavigationBar(FirebaseAuth _firebaseAuth,

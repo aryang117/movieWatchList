@@ -5,9 +5,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 // Other Screens
-import '../LoginScreen.dart';
-import '../addToDBForm.dart';
-import '/Screens/updateDBForm.dart';
+import '../Login/LoginScreen.dart';
+import '../addToDBForm/addToDBForm.dart';
+import '../updateDBForm/updateDBForm.dart';
 
 import '/Models/movieDB.dart';
 

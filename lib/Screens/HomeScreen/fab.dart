@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // screens
-import '../addToDBForm.dart';
+import '../addToDBForm/addToDBForm.dart';
 
 // fab, shows an add button if the user is logged in, reload button if the user is not
 FloatingActionButton? floatingActionButton(
