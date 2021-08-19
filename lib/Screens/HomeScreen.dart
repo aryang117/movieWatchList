@@ -120,17 +120,20 @@ FloatingActionButton? _floatingActionButton(
 // Building the list of DB items
 ListView _movieListBuilder(
     BuildContext _context, Function _updatedDB, Function _deleteValueFromDB) {
+  // opening the box to render the list
   final _movieBox = Hive.box('movieDB');
   return ListView.builder(
     itemBuilder: (_context, _index) {
-      final _movieDB = _movieBox.getAt(_index) as MovieDB;
-      final dbItem = _movieBox.length;
+      // current item object in hive
+      final _curMovieDBItem = _movieBox.getAt(_index) as MovieDB;
+      // current item index in hive
+      final _curItemIndex = _movieBox.length;
 
       return Container(
         padding: const EdgeInsets.only(top: 20),
         height: 100,
         child: Dismissible(
-            key: Key(dbItem.toString()),
+            key: Key(_curItemIndex.toString()),
             background: Container(
               color: Colors.red,
               child: Text('Delete Item'),
@@ -142,8 +145,12 @@ ListView _movieListBuilder(
               ScaffoldMessenger.of(_context).showSnackBar(
                   SnackBar(content: Text('Deleted Value at index : $_index')));
             },
-            child: _listTileMaker(_context, _movieDB.posterLink,
-                _movieDB.movieName, _movieDB.directorName, _index)),
+            child: _listTileMaker(
+                _context,
+                _curMovieDBItem.posterLink,
+                _curMovieDBItem.movieName,
+                _curMovieDBItem.directorName,
+                _index)),
       );
     },
     itemCount: _movieBox.length,
@@ -163,6 +170,7 @@ ListTile _listTileMaker(BuildContext _context, String _posterLink,
         style: TextStyle(
           fontSize: 14,
         )),
+    //TODO : add a delete icon as well, as per requirements
     trailing: IconButton(
       color: Colors.black,
       icon: Icon(Icons.edit),
