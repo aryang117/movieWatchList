@@ -1,7 +1,22 @@
-# Yellow Class Take Home Task - MovieDB
+# Table of Contents
+  - **[Overview](#yellow-class-take-home-task-moviedb)**
+    -  [Problem Statement](#problem-statement)
+    -  [Status](#status)
+  - **[Building And Installation](#building-&-installation)**
+    - [Pre-Requistes](#prerequisites)
+    - [Cloning/Downloading the Project](#cloning-the-project-repo)
+    - [Building the App](#build)
+    - [Installation](#installation)
+  - **[Technical Discussion](#technical-discussion)**
+    - [Packages](#packages-used)
+    - [Platform/APIs Used](#platform-and-apis-used)
+    - [Tools I Used](#tools-used)
+    - [Features Implemented](#features-implmented)
+
+# Yellow Class Take Home Task MovieDB
   This repository was made for Yellow Class's take home task. 
   
-  ## Problem Statement - 
+  ## Problem Statement 
   Build a simple application using Flutter compatible with Android/iOS devices.
 
   - Build a simple aesthetic app to add/edit/delete/list movies that a user has watched.
@@ -34,7 +49,7 @@
   - [OMDB Api Key](http://www.omdbapi.com/) - you will need your own key, I have **not** included mine in this repo
 
 
-  ## Downloading/Cloning the Repository
+  ## Cloning the Project Repo
   If you like using the terminal
    - Navigate to where you want to clone this repo
    - ```git clone https://github.com/aryang117/yellowclassTest.git```
@@ -73,7 +88,7 @@
   - http (^0.13.3) - to implement API calls
   - flutter_signIn_button (^2.0.0) - To get Ready-Made Sign-in via Google button (only components/button no functionality
 
-  ## Platforms/APIs used
+  ## Platforms and APIs used
   I had to use some 3rd Party APIs and Platforms to implement some required and optional functionalities of the app
    - [OMDB API](http://www.omdbapi.com/) - to get movie posters
    - [Firebase / Firebase Auth](https://firebase.google.com) - To implement Sign in functionality
@@ -84,15 +99,22 @@
   - Windows Terminal (Main Terminal)
   - Android Emulator (To debug the apps)
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  ## Features Implemented
+  
+  The app already fulfills all the requirements given in the problem statement. 
+  
+  ### Optional Features Implemented
+  The App allows the user to persistently sign in anonymously or sign in via Google or skip the sign in.
+  Only signed in users are allowed to add new movies. 
+  
+  ### Extra Features Implemented
+  I added a few features that were not part of the problem statement, but they were added to help in development and are just tiny QoL (Quality of Life) features to make it easier to perform all operations of the app
+  #### Bottom Navigation Bar
+  Added a quick Bottom Navigation Bar, that will allow users to 
+  - Clear all values of the box
+  - Log Out of the App
+  #### Placeholder Images
+  - I added placeholder images in case if the API doesn't return a link for the movies (such as a N/A), this seems to be an edge case, I encountered while added Iron Man 3 movie.
+  - I also added placeholder images in the addToForm screen, it will display that placeholder image until the user enters a movie and the app gets it's poster's link.
+  #### Anonymous Sign in
+  Don't want to go through the hassle to sign in via Google? Don't worry, I added a Anonymous Sign in button, this will allow you to Sign in anonymously and still use all of the Signed in user functionality (mainly adding new movies) (You will have to enable Anonymouse Sign in in [Firebase console](https://console.firebase.google.com))
