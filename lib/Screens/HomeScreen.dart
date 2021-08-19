@@ -24,24 +24,31 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  // updating values in the db
+  // updating values in the box
   void updateValuesDB(int _index, MovieDB _updatedValue) {
     setState(() {
       Hive.box('movieDB').putAt(_index, _updatedValue);
     });
   }
 
-  // deleting values in the db
+  // deleting values in the box
   void deleteValuesDB(int _index) {
     setState(() {
       Hive.box('movieDB').deleteAt(_index);
     });
   }
 
-  // refresh data in the db, not needed anymore, all the CRUD operations already refresh state
+  // refresh data in the box, not needed anymore, all the CRUD operations already refresh state
   void refreshDBData() {
     setState(() {
       print('list refreshed');
+    });
+  }
+
+  // clears all of the data in the box
+  void _clearAllData() {
+    setState(() {
+      Hive.box('movieDB').clear();
     });
   }
 
@@ -50,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       extendBody: true,
       bottomNavigationBar:
-          _bottomNavigationBar(_firebaseAuth, context, refreshDBData),
+          _bottomNavigationBar(_firebaseAuth, context, _clearAllData),
       body: Container(
         child: SingleChildScrollView(
           child: Column(children: [
@@ -68,15 +75,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-// Implemented a quick bottomnavbar
-BottomNavigationBar _bottomNavigationBar(
-    FirebaseAuth _firebaseAuth, BuildContext _context, Function _refreshList) {
-  return BottomNavigationBar(currentIndex: 0, items: [
+// Implemented a quick bottomnavbar, allows you to sign out or clear all values [only if u're logged in]
+BottomNavigationBar _bottomNavigationBar(FirebaseAuth _firebaseAuth,
+    BuildContext _context, Function _clearAllValues) {
+  return BottomNavigationBar(items: [
     BottomNavigationBarItem(
-        label: 'Refresh',
+        label: 'Clear',
         icon: IconButton(
-            icon: Icon(Icons.refresh_rounded),
-            onPressed: () => _refreshList())),
+            icon: Icon(Icons.clear_all_rounded),
+            onPressed: () => _clearAllValues())),
     BottomNavigationBarItem(
         label: 'Sign Out',
         icon: IconButton(
