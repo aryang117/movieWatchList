@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 // 3rd party packages
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hive/hive.dart';
+import 'package:yellowclassactual/Widgets/commonWidgets.dart';
 
 // Other Screens
 import 'addToDBForm.dart';
@@ -147,8 +148,8 @@ ListView _movieListBuilder(
       final _curItemIndex = _movieBox.length;
 
       return Container(
-        padding: const EdgeInsets.only(top: 20),
-        height: 100,
+        padding: const EdgeInsets.only(top: 10, right: 10, left: 10),
+        height: 120,
         child: _listTileMaker(
             _context,
             _curMovieDBItem.posterLink,
@@ -163,31 +164,63 @@ ListView _movieListBuilder(
 }
 
 // Maker for each ListTile
-ListTile _listTileMaker(
-    BuildContext _context,
-    String _posterLink,
-    String _movieName,
-    String _dirName,
-    int _index,
-    Function _deleteValueFromDB) {
-  return ListTile(
-    leading: _thumbnailMaker(_posterLink),
-    horizontalTitleGap: 20,
-    title: Text(_movieName,
-        style: TextStyle(
-            fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black)),
-    subtitle: Text(_dirName,
-        style: TextStyle(
-          fontSize: 14,
-        )),
-    trailing: Container(
-      width: 100,
-      child: Row(
-        children: [
-          _editIcon(_index, _context),
-          _deleteIcon(_index, _deleteValueFromDB),
-        ],
-      ),
+Widget _listTileMaker(
+  BuildContext _context,
+  String _posterLink,
+  String _movieName,
+  String _dirName,
+  int _index,
+  Function _deleteValueFromDB,
+) {
+  return Container(
+    alignment: Alignment.center,
+    height: 100,
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+        color: Colors.white70),
+    child: Row(
+      //shape: RoundedRectangleBorder(),
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        _listContent(_movieName, _dirName, _posterLink),
+        Container(
+          width: 100,
+          child: Row(
+            children: [
+              _editIcon(_index, _context),
+              _deleteIcon(_index, _deleteValueFromDB),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+// Makes the List Content, i.e, Name, Director Name and thumnail
+Widget _listContent(String _movieName, String _dirName, String _posterLink) {
+  return Expanded(
+    child: Row(
+      children: [
+        _thumbnailMaker(_posterLink),
+        Padding(padding: const EdgeInsets.only(left: 30)),
+        Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(_movieName,
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black87)),
+              Padding(padding: const EdgeInsets.only(top: 5)),
+              Text(_dirName,
+                  style: TextStyle(fontSize: 16, color: Colors.black54)),
+            ],
+          ),
+        ),
+      ],
     ),
   );
 }
@@ -215,14 +248,17 @@ Widget _editIcon(int _index, BuildContext _context) {
 
 // Maker for ListTile's thumbnail
 Widget _thumbnailMaker(String posterLink) {
-  return ClipRRect(
-    borderRadius: BorderRadius.circular(5),
-    child: SizedBox(
-      height: 60,
-      width: 60,
-      child: Image.network(
-        posterLink,
-        fit: BoxFit.fill,
+  return Card(
+    elevation: 2,
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(5),
+      child: SizedBox(
+        height: 100,
+        width: 80,
+        child: Image.network(
+          posterLink,
+          fit: BoxFit.fill,
+        ),
       ),
     ),
   );
