@@ -68,6 +68,7 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
         _curApiData.last =
             "https://cdn.mos.cms.futurecdn.net/j6reMf3QEuGWFE7FkVmoyT-1200-80.jpg";
 
+      _dirNameController.text = _curApiData[1];
       //updating the UI as we have a new poster
       setState(() {
         print("updated poster!");
