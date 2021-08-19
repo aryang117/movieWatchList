@@ -78,7 +78,7 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
 
   //updates values in the DB
   Future<void> _updateValues() async {
-    if (_curApiData == _prevData) await _getMoviePosterLink();
+    if (_curApiData.last == _prevData.last) await _getMoviePosterLink();
 
     print("new poster url " + _curApiData.last);
     if (_curApiData.length != 0 && _curApiData.last != "null") {
