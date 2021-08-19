@@ -82,17 +82,20 @@ Widget _listContent(String _movieName, String _dirName, String _posterLink) {
     child: Row(
       children: [
         _thumbnailMaker(_posterLink),
-        Padding(padding: const EdgeInsets.only(left: 30)),
+        Padding(padding: const EdgeInsets.only(left: 20)),
         Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(_movieName,
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black87)),
+              Container(
+                width: 164,
+                child: Text(_movieName,
+                    style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black87)),
+              ),
               Padding(padding: const EdgeInsets.only(top: 5)),
               Text(_dirName,
                   style: TextStyle(fontSize: 16, color: Colors.black54)),
