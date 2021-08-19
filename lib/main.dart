@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -6,6 +8,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive/hive.dart';
 
 // other screens
+import 'API/api.dart';
 import 'Screens/Login/LoginScreen.dart';
 
 import 'Models/movieDB.dart';
@@ -17,6 +20,7 @@ void main() async {
   await Hive.initFlutter();
   await Firebase.initializeApp();
   Hive.registerAdapter(MovieDBAdapter());
+  loadApiKey();
   runApp(MyApp());
 }
 

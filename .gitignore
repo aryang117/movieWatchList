@@ -48,3 +48,4 @@ app.*.map.json
 #api key
 secret/
 android/app/google-services.json
+assets/apiKey.json
