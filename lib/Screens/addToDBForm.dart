@@ -12,11 +12,11 @@ import '/API/api.dart';
 // file containing common widgets used throughout the app
 import '/Widgets/commonWidgets.dart';
 
-String _posterURL = "";
+List _curApiData = ['', '', ''];
 
 // stores the status of the updation of posterURL, happens when the user may directly
 // click on the update values and not save the field (i.e click on the cta and not submit the value)
-String _prevURL = "";
+List _prevApiData = [];
 
 // This is the form that allows the user to add new movies
 // The user can specify the movie name and director name
@@ -40,12 +40,12 @@ class _AddToDBFormState extends State<AddToDBForm> {
 
   // when the user is done with editing the field, it gets the movie Poster Link
   Future<void> _getMoviePosterLink() async {
-    _posterURL = await getMoviePoster(_movieNameController.text);
+    _curApiData = await getMoviePoster(_movieNameController.text);
 
-    if (_posterURL.length != 0 && _posterURL != "null") {
+    if (_curApiData.length != 0 && _curApiData.last != "null") {
       // in case if the movie poster link is given as N/A (movie poster not present/found by api) : edge case
-      if (_posterURL == "N/A")
-        _posterURL =
+      if (_curApiData.last == "N/A")
+        _curApiData.last =
             "https://cdn.mos.cms.futurecdn.net/j6reMf3QEuGWFE7FkVmoyT-1200-80.jpg";
 
       //updating the UI as we have a new poster
@@ -59,17 +59,17 @@ class _AddToDBFormState extends State<AddToDBForm> {
 
   //add new values in the DB
   Future<void> _addtoDB() async {
-    if (_posterURL.length == 0 ||
-        _posterURL == "null" ||
-        _posterURL == _prevURL) await _getMoviePosterLink();
+    if (_curApiData.length == 0 ||
+        _curApiData.last == "null" ||
+        _curApiData == _prevApiData) await _getMoviePosterLink();
 
-    if (_posterURL.length != 0 && _posterURL != "null") {
-      final newMovieData = MovieDB(
-          _movieNameController.text, _dirNameController.text, _posterURL);
+    if (_curApiData.length != 0 && _curApiData.last != "null") {
+      final newMovieData =
+          MovieDB(_curApiData[0], _curApiData[1], _curApiData[2]);
 
       setState(() {
         Hive.box('movieDB').add(newMovieData);
-        _prevURL = _posterURL;
+        _prevApiData = _curApiData;
       });
       Navigator.pop(context);
     } else {
@@ -90,7 +90,7 @@ class _AddToDBFormState extends State<AddToDBForm> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              posterPreview(_posterURL),
+              posterPreview(_curApiData[2].toString()),
               vertPaddingbetweenElements(),
               // cannot be separated into it's own stl/stf widget, onEditingComplete won't work!!
               TextFormField(

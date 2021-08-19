@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import '/secret/keys.dart';
 
 // gets the api respones from _getDataFromApi() and returns the PosterLink
-Future<String> getMoviePoster(String _movieName) async {
+Future<List<String>> getMoviePoster(String _movieName) async {
   final responseData = await _getDataFromApi(_movieName);
 
   //decoding api response as a map
@@ -19,7 +19,11 @@ Future<String> getMoviePoster(String _movieName) async {
       responseData.statusCode.toString() +
       responseData.body.toString());
 
-  return values["Poster"].toString();
+  return [
+    values["Title"].toString(),
+    values["Director"].toString(),
+    values["Poster"].toString()
+  ];
 }
 
 //  gets the response from the api acc to the movieName

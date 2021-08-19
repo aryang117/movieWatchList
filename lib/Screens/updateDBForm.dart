@@ -12,10 +12,10 @@ import '/Widgets/commonWidgets.dart';
 import '/Models/movieDB.dart';
 
 //store the url of the Poster
-String _posterURL = "";
+List _curApiData = ['', '', ''];
 
 // stores the previous posterURL, that is loaded from the previous value
-String _prevURL = "";
+List _prevData = ['', '', ''];
 
 // This is the form that allows the user to edit existing movies
 // The user can specify the movie name and director name, the name that they previously added is put in the field by default
@@ -46,8 +46,8 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
     final curValues = await box.getAt(widget.index) as MovieDB;
     _movieNameController.text = curValues.movieName;
     _dirNameController.text = curValues.directorName;
-    _posterURL = curValues.posterLink;
-    _prevURL = curValues.posterLink;
+    _curApiData.last = curValues.posterLink;
+    _prevData.last = curValues.posterLink;
   }
 
   // we get the past values as soon as the widget initializes
@@ -59,12 +59,12 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
 
   // when the user is done with editing the field, it gets the movie Poster Link
   Future<void> _getMoviePosterLink() async {
-    _posterURL = await getMoviePoster(_movieNameController.text);
+    _curApiData = await getMoviePoster(_movieNameController.text);
 
-    if (_posterURL.length != 0 && _posterURL != "null") {
+    if (_curApiData.length != 0 && _curApiData.last != "null") {
       // in case if the movie poster link is given as N/A (movie poster not present/found by api) : edge case
-      if (_posterURL == "N/A")
-        _posterURL =
+      if (_curApiData.last == "N/A")
+        _curApiData.last =
             "https://cdn.mos.cms.futurecdn.net/j6reMf3QEuGWFE7FkVmoyT-1200-80.jpg";
 
       //updating the UI as we have a new poster
@@ -78,12 +78,12 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
 
   //updates values in the DB
   Future<void> _updateValues() async {
-    if (_posterURL == _prevURL) await _getMoviePosterLink();
+    if (_curApiData == _prevData) await _getMoviePosterLink();
 
-    print("new poster url " + _posterURL);
-    if (_posterURL.length != 0 && _posterURL != "null") {
-      final _updatedMovieData = MovieDB(
-          _movieNameController.text, _dirNameController.text, _posterURL);
+    print("new poster url " + _curApiData.last);
+    if (_curApiData.length != 0 && _curApiData.last != "null") {
+      final _updatedMovieData =
+          MovieDB(_curApiData[0], _curApiData[1], _curApiData[2]);
 
       setState(() {
         Hive.box('movieDB').putAt(widget.index, _updatedMovieData);
@@ -107,7 +107,7 @@ class _UpdateDBFormState extends State<UpdateDBForm> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              posterPreview(_posterURL),
+              posterPreview(_curApiData.last),
               vertPaddingbetweenElements(),
 
               // cannot be separated into it's own stl/stf widget, if done onEditingComplete will call every frame!!
@@ -139,8 +139,11 @@ Widget _submitButton(double _widgetWidth, Function _updateValues) {
       height: 60,
       width: _widgetWidth,
       child: MaterialButton(
-          color: Colors.redAccent[400],
+          color: Colors.black,
           child: Text('Update Values',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white)),
           onPressed: () => _updateValues()));
 }
