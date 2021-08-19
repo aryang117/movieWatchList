@@ -1,11 +1,11 @@
+# Yellow Class Take Home Task
+  This repository was made for Yellow Class's take home task. 
+  
 # Table of Contents
-  - [Overview](#yellow-class-take-home-task-moviedb)
+  - [Overview](#yellow-class-take-home-task)
   - [Building and Installation](#building-and-installation)
   - [Technical Discussion](#technical-discussion)
 
-# Yellow Class Take Home Task MovieDB
-  This repository was made for Yellow Class's take home task. 
-  
   ## Problem Statement 
   Build a simple application using Flutter compatible with Android/iOS devices.
 
@@ -17,7 +17,7 @@
 
 **Brownie points** for integrating persistent google authentication using firebase and then allowing only logged-in users to add movies.
 
-  ## Assigned To
+  #### Assigned To 
   Aryan Gupta 18BCE10062
 
   ## Status
@@ -108,3 +108,5 @@
   - I also added placeholder images in the addToForm screen, it will display that placeholder image until the user enters a movie and the app gets it's poster's link.
   #### Anonymous Sign in
   Don't want to go through the hassle to sign in via Google? Don't worry, I added a Anonymous Sign in button, this will allow you to Sign in anonymously and still use all of the Signed in user functionality (mainly adding new movies) (You will have to enable Anonymouse Sign in in [Firebase console](https://console.firebase.google.com))
+  
+  ### [Back to top](#yellow-class-take-home-task)
